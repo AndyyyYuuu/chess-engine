@@ -33,19 +33,23 @@ def best_value(board, is_white, depth):
         return min(best_move_values)
 
 print(board)
-def best_move(board):
-    max_num = -math.inf
-    max_move = None
+def evaluate(board):
+    if board.turn == chess.BLACK:
+        best_num = math.inf
+    else:
+        best_num = -math.inf
+    best_move = None
     for a_move in board.legal_moves:
         board.push_san(str(a_move))
-        if best_value(board, True, DEPTH) > max_num:
-            max_move = a_move
-            max_num = best_value(board, True, DEPTH)
+        value = best_value(board, True, DEPTH)
+        if (board.turn == chess.BLACK and value > best_num) or (board.turn == chess.WHITE and value < best_num):
+            best_move = a_move
+            best_num = value
         board.pop()
-    return max_move
+    return best_move
 while True:
     # input("Continue>>>")
     print("Chess Board: ")
-    board.push_san(str(best_move(board)))
+    board.push_san(str(evaluate(board)))
     print(board)
 
