@@ -6,6 +6,11 @@ def calc_advantage(board):
     piece_worth_value = 0
     for p in list(piece_worths.keys()):
         piece_worth_value += piece_worths.get(p)*str(board).count(p)
+    if board.is_checkmate():
+        if board.turn == chess.WHITE:
+            return -math.inf
+        else:
+            return math.inf
     return piece_worth_value
 
 def best_value(board, is_white, depth):
