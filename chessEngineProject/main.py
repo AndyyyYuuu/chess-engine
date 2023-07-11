@@ -1,7 +1,9 @@
-import chess, math, random
+import chess, math, os
 board = chess.Board()
 piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3,"R": 4, "r": -4, "P": 1, "p": -1}
 DEPTH = 2
+
+
 def calc_advantage(board):
     piece_worth_value = 0
     for p in list(piece_worths.keys()):
@@ -12,6 +14,7 @@ def calc_advantage(board):
         else:
             return math.inf
     return piece_worth_value
+
 
 def best_value(board, is_white, depth):
     if depth == 0:
@@ -32,7 +35,7 @@ def best_value(board, is_white, depth):
     else:
         return min(best_move_values)
 
-print(board)
+
 def evaluate(board):
     if board.turn == chess.BLACK:
         best_num = math.inf
@@ -47,9 +50,20 @@ def evaluate(board):
             best_num = value
         board.pop()
     return best_move
+
+
+best_value(board, True, DEPTH)
+game_over_reasons = ("Checkmate", "Stalemate", "Insufficient material", "75-move rule", "Fivefold repetition", "50-move rule", "Threefold repetition")
 while True:
     # input("Continue>>>")
-    print("Chess Board: ")
+    print("Calculating...")
     board.push_san(str(evaluate(board)))
+    os.system("clear")
+    print(("Black to move", "White to move")[board.turn])
     print(board)
+    if board.is_game_over():
+        print(game_over_reasons[board.outcome().termination.value+1])
+        print(board.outcome().result())
+        break
+
 
