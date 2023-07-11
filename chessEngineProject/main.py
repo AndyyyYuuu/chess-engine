@@ -62,7 +62,7 @@ while True:
     print(("Black to move", "White to move")[board.turn])
     print(board)
     if board.is_game_over():
-        print(game_over_reasons[board.outcome().termination.value+1])
+        print(game_over_reasons[board.outcome().termination.value-1])
         print(board.outcome().result())
         break
 
