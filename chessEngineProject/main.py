@@ -15,28 +15,29 @@ def calc_advantage(board):
             return -math.inf
         else:
             return math.inf
+    if board.can_claim_draw():
+        return 0
     return piece_worth_value
 
 
-    if depth == 0:
-def best_value(input_board, is_white, depth):
+def best_value(input_board, move, is_white, depth):
     board = copy.copy(input_board)
+    board.push_san(move)
+    if depth == 0 or board.is_game_over():
         return calc_advantage(board)
     possible_moves = board.legal_moves
     best_move_values = []
 
     for a_move in possible_moves:
-        board.push_san(str(a_move))
-        best_move_values.append(best_value(board, not is_white, depth-1))
-        if best_move_values[-1] is None:
-            best_move_values.pop(-1)
-        board.pop()
+        best_move_values.append(best_value(board, str(a_move), not is_white, depth-1))
+        #if best_move_values[-1] is None:
+            #best_move_values.pop(-1)
     if len(best_move_values) == 0:
         return None
-    if is_white:
-        return max(best_move_values)
-    else:
+    if board.turn == chess.BLACK:
         return min(best_move_values)
+    else:
+        return max(best_move_values)
 
 
 def evaluate(board):
@@ -46,16 +47,16 @@ def evaluate(board):
         best_num = -math.inf
     best_move = None
     for a_move in board.legal_moves:
-        board.push_san(str(a_move))
-        value = best_value(board, True, DEPTH)
-        if (board.turn == chess.BLACK and value > best_num) or (board.turn == chess.WHITE and value < best_num):
+
+        value = best_value(board, str(a_move), True, DEPTH)
+        if (board.turn == chess.BLACK and value < best_num) or (board.turn == chess.WHITE and value > best_num):
             best_move = a_move
             best_num = value
-        board.pop()
     return best_move
 
 
-best_value(chessboard, True, DEPTH)
+
+
 game_over_reasons = ("Checkmate", "Stalemate", "Insufficient material", "75-move rule", "Fivefold repetition", "50-move rule", "Threefold repetition")
 while True:
     print(f"Possibilities considered: {possibilities}")
