@@ -1,7 +1,19 @@
-import chess, os, stockyu
+import chess
+import os
+import stockyu
+
 chessboard = chess.Board()
 
-game_over_reasons = ("Checkmate", "Stalemate", "Insufficient material", "75-move rule", "Fivefold repetition", "50-move rule", "Threefold repetition")
+game_over_reasons = (
+    "Checkmate",
+    "Stalemate",
+    "Insufficient material",
+    "75-move rule",
+    "Fivefold repetition",
+    "50-move rule",
+    "Threefold repetition"
+)
+
 print("Loading...")
 while True:
     os.system("clear")
@@ -15,6 +27,3 @@ while True:
     possibilities = 0
     print("Calculating...")
     chessboard.push_san(str(stockyu.evaluate(chessboard)))
-
-
-

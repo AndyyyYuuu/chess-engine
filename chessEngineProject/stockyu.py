@@ -2,6 +2,8 @@ import chess, math, copy
 
 piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3, "R": 4, "r": -4, "P": 1, "p": -1}
 DEPTH = 2
+
+
 def calc_advantage(board):
     piece_worth_value = 0
     for p in list(piece_worths.keys()):
@@ -14,6 +16,7 @@ def calc_advantage(board):
     if board.can_claim_draw():
         return 0
     return piece_worth_value
+
 
 def best_value(input_board, move, is_white, depth):
     board = copy.copy(input_board)
