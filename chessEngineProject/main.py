@@ -1,8 +1,11 @@
 import chess
+import chess.pgn
 import os
 import stockyu
 
 chessboard = chess.Board()
+game = chess.pgn.Game()
+moves = []
 
 game_over_reasons = (
     "Checkmate",
@@ -20,10 +23,13 @@ while True:
     print("STOCKYU EVALUATION BOARD")
     print(("Black to move", "White to move")[chessboard.turn])
     print(chessboard)
+    print(", ".join(moves))
     if chessboard.is_game_over():
         print(game_over_reasons[chessboard.outcome().termination.value-1])
         print(chessboard.outcome().result())
         break
     possibilities = 0
     print("Calculating...")
-    chessboard.push_san(str(stockyu.evaluate(chessboard)))
+    move = stockyu.evaluate(chessboard)
+    chessboard.push_san(str(move))
+    moves.append(str(move))
