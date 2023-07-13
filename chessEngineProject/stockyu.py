@@ -30,18 +30,26 @@ def best_value(input_board, move, is_white, depth):
     if depth == 0 or board.is_game_over():
         return calc_advantage(board)
     possible_moves = board.legal_moves
-    best_move_values = []
+
+    #best_move_values = []
+    best_move_value = (math.inf, -math.inf)[board.turn]
 
     for a_move in possible_moves:
-        best_move_values.append(best_value(board, str(a_move), not is_white, depth-1))
+        #best_move_values.append(best_value(board, str(a_move), not is_white, depth-1))
+        v = best_value(board, str(a_move), not is_white, depth-1)
+        if (board.turn == chess.WHITE and v > best_move_value) or (board.turn == chess.BLACK and v < best_move_value):
+            best_move_value = v
         #if best_move_values[-1] is None:
             #best_move_values.pop(-1)
+    return best_move_value
+    '''
     if len(best_move_values) == 0:
         return None
     if board.turn == chess.BLACK:
         return min(best_move_values)
     else:
         return max(best_move_values)
+        '''
 
 
 def evaluate(board):
