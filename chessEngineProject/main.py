@@ -1,3 +1,8 @@
+# StockYu Engine Tester
+# Andy Yu
+# Runs a chess game of StockYu v. itself
+
+
 import chess
 import chess.pgn
 import os

@@ -1,9 +1,15 @@
+# StockYu Chess Engine
+# Andy Yu
+# Use evaluate(chess.Board) to get best move
+
 import chess, math, copy
 
-piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3, "R": 4, "r": -4, "P": 1, "p": -1}
+piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3, "R": 5, "r": -5, "P": 1, "p": -1}
 DEPTH = 2
+function_runs = 0
 
 
+# Returns the value of a position
 def calc_advantage(board):
     if board.is_checkmate():
         if board.turn == chess.WHITE:
@@ -24,6 +30,7 @@ def calc_advantage(board):
     return value
 
 
+# Returns the value of the worst-case scenario
 def best_value(input_board, move, is_white, depth):
     board = copy.copy(input_board)
     board.push_san(move)
@@ -42,16 +49,9 @@ def best_value(input_board, move, is_white, depth):
         #if best_move_values[-1] is None:
             #best_move_values.pop(-1)
     return best_move_value
-    '''
-    if len(best_move_values) == 0:
-        return None
-    if board.turn == chess.BLACK:
-        return min(best_move_values)
-    else:
-        return max(best_move_values)
-        '''
 
 
+# Returns the best move on the given board
 def evaluate(board):
     if board.turn == chess.BLACK:
         best_num = math.inf
