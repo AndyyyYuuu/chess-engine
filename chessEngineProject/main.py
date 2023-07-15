@@ -33,7 +33,6 @@ while True:
         print(game_over_reasons[chessboard.outcome().termination.value-1])
         print(chessboard.outcome().result())
         break
-    possibilities = 0
     print("Calculating...")
     move = stockyu.evaluate(chessboard)
     chessboard.push_san(str(move))
