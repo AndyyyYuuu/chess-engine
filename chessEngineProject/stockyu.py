@@ -31,7 +31,7 @@ def calc_advantage(board):
 
 
 # Returns the value of the worst-case scenario
-def best_value(input_board, move, is_white, depth):
+def best_value(input_board, move, depth, alpha, beta):
     global function_runs
     function_runs += 1
 
@@ -45,10 +45,15 @@ def best_value(input_board, move, is_white, depth):
     # Find the value of the move assuming both sides play most optimally
     best_move_value = (math.inf, -math.inf)[board.turn]
     for a_move in board.legal_moves:
-        v = best_value(board, str(a_move), not is_white, depth-1)
+        v = best_value(board, str(a_move), depth-1, alpha, beta)
         if (board.turn == chess.WHITE and v > best_move_value) or (board.turn == chess.BLACK and v < best_move_value):
             best_move_value = v
-
+        if board.turn == chess.WHITE:
+            alpha = max(alpha, v)
+        else:
+            beta = min(beta, v)
+        if beta <= alpha:
+            break
     return best_move_value
 
 
@@ -65,7 +70,7 @@ def evaluate(board):
     best_move = None
 
     for a_move in board.legal_moves:
-        value = best_value(board, str(a_move), True, DEPTH)
+        value = best_value(board, str(a_move), DEPTH, -math.inf, math.inf)
         if (board.turn == chess.BLACK and value < best_num) or (board.turn == chess.WHITE and value > best_num):
             best_move = a_move
             best_num = value
