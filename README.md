@@ -1,7 +1,19 @@
 # Homemade Chess Engine: "StockYu"
-An attempt at a chess engine, created for the HackChess hackathon. 
-This project uses [python-chess](https://github.com/niklasf/python-chess) for move generation. 
+> *Every masterpiece has its cheap copy.*
 
-### Algorithm Explanation, if it works as intended of course
-In general, this algorithm works by recursively checking a tree of possible future positions and moves. The program assumes the worst case scenario, that is, the scenario in which the opponant makes the best moves. 
-As a base case to prevent infinately searching down the tree of positions, the algorithm probes a certain depth before hitting a maximum, where it assigns the position a value based on a variety of factors such as number of pieces on both sides and whether or not a side has checkmated. A positive value means that white has the advantage, whereas a negative value is an advantage for black. These positional values are used by the search algorithm to find the worst case scenarios of each move and pick the move leading to the least undesirable positions. 
+&nbsp;&nbsp;&nbsp;&nbsp;An attempt at a chess engine, created for the HackChess hackathon. 
+
+### Explanation
+&nbsp;&nbsp;&nbsp;&nbsp;TL;DR: A simple minimax algorithm optimized with alpha-beta pruning that calculates 3 moves ahead. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;In general, this Minimax algorithm works by recursively checking a tree of possible future positions and moves. The program assumes the scenario in which both sides make the best moves and finds the move leading to the least disadvantaged positions. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;At the end of each branch of the Minimax tree, that is, whenever the probe hits max depth or detects the end of a game, the position is evaluated. The value of the position is calculated using this formula: 
+```py
+value = (white_piece_values - black_piece_values) + mobility * 0.1
+```
+&nbsp;&nbsp;&nbsp;&nbsp;This value is used in the Minimax algorithm to determine the best moves; to white, this means maximizing the value of a position, while black seeks to minimize it. 
+
+### Thanks to: 
+- [HackChess 2023](https://hackchess.devpost.com/) for providing an opportunity for this chess engine to face some very formidable opponents. 
+- [python-chess](https://github.com/niklasf/python-chess) for its move generation and checkmate/draw detection functions. 
