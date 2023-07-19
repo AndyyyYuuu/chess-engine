@@ -14,6 +14,11 @@ value = (white_piece_values - black_piece_values) + mobility * 0.1
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;This value is used in the Minimax algorithm to determine the best moves; to white, this means maximizing the value of a position, while black seeks to minimize it. 
 
+### Files
+- `stockyu.py` Contains the engine's evaluation functions.
+- `main.py` Runs a game of StockYu vs. user input using UCI notation.
+- `demo.py` Runs and displays a game of StockYu vs. itself. 
+
 ### Thanks to: 
 - [HackChess 2023](https://hackchess.devpost.com/) for providing an opportunity for this chess engine to face some very formidable opponents. 
 - [python-chess](https://github.com/niklasf/python-chess) for its move generation and checkmate/draw detection functions. 
