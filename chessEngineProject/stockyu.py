@@ -71,7 +71,7 @@ def evaluate(board):
 
     for a_move in board.legal_moves:
         value = best_value(board, str(a_move), DEPTH, -math.inf, math.inf)
-        if (board.turn == chess.BLACK and value < best_num) or (board.turn == chess.WHITE and value > best_num):
+        if (board.turn == chess.BLACK and value <= best_num) or (board.turn == chess.WHITE and value >= best_num):
             best_move = a_move
             best_num = value
     print(f"Evaluated positions: {function_runs}")
