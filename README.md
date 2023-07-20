@@ -2,6 +2,7 @@
 > *Every masterpiece has its cheap copy.*
 
 &nbsp;&nbsp;&nbsp;&nbsp;An attempt at a chess engine, created for the HackChess hackathon. 
+&nbsp;&nbsp;&nbsp;&nbsp;**To use with UCI Protocol, run main.py. **
 
 ### Explanation
 &nbsp;&nbsp;&nbsp;&nbsp;TL;DR: A simple minimax algorithm optimized with alpha-beta pruning that calculates 3 moves ahead. 
