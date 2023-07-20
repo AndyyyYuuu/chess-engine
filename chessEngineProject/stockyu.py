@@ -6,7 +6,6 @@ import chess, math, copy
 
 piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3, "R": 5, "r": -5, "P": 1, "p": -1}
 DEPTH = 2
-function_runs = 0
 
 
 # Returns the value of a position
@@ -32,8 +31,6 @@ def calc_advantage(board):
 
 # Returns the value of the worst-case scenario
 def best_value(input_board, move, depth, alpha, beta):
-    global function_runs
-    function_runs += 1
 
     board = copy.copy(input_board)
     board.push_san(move)
@@ -59,8 +56,6 @@ def best_value(input_board, move, depth, alpha, beta):
 
 # Returns the best move on the given board
 def evaluate(board):
-    global function_runs
-    function_runs = 0
 
     # Find move yielding the best value from best_value()
     if board.turn == chess.BLACK:
@@ -74,5 +69,4 @@ def evaluate(board):
         if (board.turn == chess.BLACK and value <= best_num) or (board.turn == chess.WHITE and value >= best_num):
             best_move = a_move
             best_num = value
-    print(f"Evaluated positions: {function_runs}")
     return best_move
