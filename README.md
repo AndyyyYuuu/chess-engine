@@ -3,14 +3,19 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;An attempt at a chess engine, created for the HackChess hackathon. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;**To use with UCI Protocol, run `chessEngineProject/main.py`.**
+### How to Use
+&nbsp;&nbsp;&nbsp;&nbsp;First install python-chess with the following command: 
+```zsh
+pip install chess
+```
+&nbsp;&nbsp;&nbsp;&nbsp;**To use the engine with UCI Protocol, run `chessEngineProject/main.py`.**
 
 ### Explanation
 &nbsp;&nbsp;&nbsp;&nbsp;TL;DR: A simple minimax algorithm optimized with alpha-beta pruning that calculates 3 moves ahead. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;In general, this Minimax algorithm works by recursively checking a tree of possible future positions and moves. The program assumes the scenario in which both sides make the best moves and finds the move leading to the least disadvantaged positions. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;At the end of each branch of the Minimax tree, that is, whenever the probe hits max depth or detects the end of a game, the position is evaluated. The value of the position is calculated using this formula: 
+&nbsp;&nbsp;&nbsp;&nbsp;At the end of each branch of the Minimax tree, that is, whenever the probe hits max depth or detects the end of a game, the position is evaluated. The value of a position, assuming no checkmates or draws, is calculated using this formula: 
 ```py
 value = (white_piece_values - black_piece_values) + mobility * 0.1
 ```
