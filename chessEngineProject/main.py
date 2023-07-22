@@ -4,7 +4,11 @@
 
 import chess
 import stockyu
+from time import time
+
+
 board = None
+time_left = 1800
 while True:
     cmd = input().split()
     try:
@@ -22,7 +26,15 @@ while True:
             elif cmd[1] == "startpos":
                 board.reset_board()
         elif cmd[0] == "go":
-            print(f"bestmove {stockyu.evaluate(board)}")
+            # Make best move with time control
+            timestamp = time()
+            if time_left > 600:
+                print(f"bestmove {stockyu.evaluate(board, 3)}")
+            elif time_left > 90:
+                print(f"bestmove {stockyu.evaluate(board, 2)}")
+            else:
+                print(f"bestmove {stockyu.evaluate(board, 1)}")
+            time_left -= time() - timestamp
         elif cmd[0] == "quit":
             exit()
     except:
