@@ -22,7 +22,7 @@ game_over_reasons = (
     "Threefold repetition"
 )
 
-print("Loading...")
+
 while True:
     os.system("clear")
     print("STOCKYU EVALUATION BOARD")
@@ -34,6 +34,6 @@ while True:
         print(chessboard.outcome().result())
         break
     print("Calculating...")
-    move = stockyu.evaluate(chessboard)
+    move = stockyu.evaluate(chessboard, DEPTH=2)
     chessboard.push_san(str(move))
     moves.append(str(move))

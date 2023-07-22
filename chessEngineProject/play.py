@@ -24,6 +24,6 @@ while not board.is_game_over():
     print(board)
     if board.is_game_over():
         break
-    move = stockyu.evaluate(board)
+    move = stockyu.evaluate(board, DEPTH=2)
     board.push_san(str(move))
 print("Game over!")
