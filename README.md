@@ -17,7 +17,7 @@ pip install chess
 
 &nbsp;&nbsp;&nbsp;&nbsp;At the end of each branch of the Minimax tree, that is, whenever the probe hits max depth or detects the end of a game, the position is evaluated. The value of a position, assuming no checkmates or draws, is calculated using this formula: 
 ```py
-value = (white_piece_values - black_piece_values) + mobility * 0.1
+value = (white_piece_values - black_piece_values) + 0.1 * (white_mobility - black_mobility)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;This value is used in the Minimax algorithm to determine the best moves; to white, this means maximizing the value of a position, while black seeks to minimize it. 
 
