@@ -22,7 +22,8 @@ while True:
             board = chess.Board()
         elif cmd[0] == "position":
             if cmd[1] == "moves":
-                board.push_uci(cmd[2])
+                for i in cmd[2:]:
+                    board.push_uci(i)
             elif cmd[1] == "startpos":
                 board.reset_board()
         elif cmd[0] == "go":
