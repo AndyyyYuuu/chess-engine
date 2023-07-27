@@ -4,6 +4,7 @@
 
 import chess
 import stockyu
+import sys
 from time import time
 
 
@@ -17,6 +18,7 @@ def log_message(str):
 def output(str):
     print(str)
     log_message(f"<< {str}")
+    sys.stdout.flush()
 log_message("\n-------- New Run --------")
 while True:
     cmd = input().split()
