@@ -10,31 +10,43 @@ from time import time
 board = None
 time_left = 1800
 time_update = None
+
+def log_message(str):
+    with open("log.txt", "a") as file:
+        file.write(f"{str}\n")
+def output(str):
+    print(str)
+    log_message(f"<< {str}")
+log_message("\n-------- New Run --------")
 while True:
     cmd = input().split()
+    log_message("INPUT: " + " ".join(cmd))
     if cmd[0] == "uci":
-        print("id name StockYu")
-        print("id author Andy_Yu")
-        print("uciok")
+        output("id name StockYu")
+        output("id author Andy_Yu")
+        output("uciok")
     elif cmd[0] == "isready":
-        print("isreadyok")
+        output("isreadyok")
+
     elif cmd[0] == "ucinewgame":
         board = chess.Board()
+        log_message("new game")
     elif cmd[0] == "position":
-        if cmd[1] == "moves":
-            for i in cmd[2:]:
-                try:
-                    board.push_uci(i)
-                except:
-                    pass
-        elif cmd[1] == "startpos":
-            board.reset_board()
-        else:
-            try: board.set_fen(cmd[1])
-            except:pass
+
+        for i in range(1, len(cmd[1:])+1):
+            if cmd[i] == "moves":
+                for j in cmd[i+1:]:
+                    try:
+                        board.push_uci(j)
+                    except:
+                        pass
+            elif cmd[i] == "startpos":
+                board.reset_board()
+            else:
+                try: board.set_fen(" ".join(cmd[i:]))
+                except:pass
     elif cmd[0] == "go":
         # Make best move with time control
-        print(cmd)
         for i in range(len(cmd[1:])):
             if (cmd[i+1] == "wtime" and board.turn == chess.WHITE) or (cmd[i+1] == "btime" and board.turn == chess.BLACK):
                 try:
@@ -46,19 +58,19 @@ while True:
             if time_update is None:
 
                 if time_left > 600:
-                    print(f"bestmove {stockyu.evaluate(board, 3)}")
+                    output(f"bestmove {stockyu.evaluate(board, 3)}")
                 elif time_left > 90:
-                    print(f"bestmove {stockyu.evaluate(board, 2)}")
+                    output(f"bestmove {stockyu.evaluate(board, 2)}")
                 else:
-                    print(f"bestmove {stockyu.evaluate(board, 1)}")
+                    output(f"bestmove {stockyu.evaluate(board, 1)}")
                 time_left -= time() - timestamp
             else:
                 if time_update > 600:
-                    print(f"bestmove {stockyu.evaluate(board, 3)}")
+                    output(f"bestmove {stockyu.evaluate(board, 3)}")
                 elif time_update > 90:
-                    print(f"bestmove {stockyu.evaluate(board, 2)}")
+                    output(f"bestmove {stockyu.evaluate(board, 2)}")
                 else:
-                    print(f"bestmove {stockyu.evaluate(board, 1)}")
+                    output(f"bestmove {stockyu.evaluate(board, 1)}")
                 time_update -= time() - timestamp
         except:pass
     elif cmd[0] == "quit":
