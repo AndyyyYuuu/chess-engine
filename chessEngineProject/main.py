@@ -11,6 +11,7 @@ from time import time
 board = None
 time_left = 1800
 time_update = None
+IS_FAST = ("fast" in sys.argv)
 
 def log_message(str):
     with open("log.txt", "a") as file:
@@ -35,7 +36,7 @@ while True:
         log_message("new game")
     elif cmd[0] == "position":
 
-        for i in range(1, len(cmd[1:])+1):
+        for i in range(1, len(cmd)):
             if cmd[i] == "moves":
                 for j in cmd[i+1:]:
                     try:
@@ -62,7 +63,7 @@ while True:
         else:
             t = time_update
 
-        if t > 600:
+        if t > 600 and not IS_FAST:
             output(f"bestmove {stockyu.evaluate(board, 3)}")
         elif t > 60:
             output(f"bestmove {stockyu.evaluate(board, 2)}")
@@ -75,3 +76,4 @@ while True:
             time_update -= time() - timestamp
 
     elif cmd[0] == "quit":
+        exit()
