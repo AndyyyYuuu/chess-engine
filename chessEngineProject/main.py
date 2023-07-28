@@ -41,29 +41,34 @@ while True:
                 for j in cmd[i+1:]:
                     try:
                         board.push_uci(j)
-                    except:
-                        pass
+                    except (chess.InvalidMoveError, chess.IllegalMoveError, chess.AmbiguousMoveError) as e:
+                        break
             elif cmd[i] == "startpos":
                 board.reset()
 
             else:
-                try: board.set_fen(" ".join(cmd[i:]))
-                except:pass
+                try:
+                    board.set_fen(" ".join(cmd[i:]))
+                except ValueError as e:
+                    log_message("ERROR: Invalid FEN")
+                    log_message(str(e))
+
     elif cmd[0] == "go":
         # Make best move with time control
         for i in range(len(cmd[1:])):
             if (cmd[i+1] == "wtime" and board.turn == chess.WHITE) or (cmd[i+1] == "btime" and board.turn == chess.BLACK):
                 try:
                     time_update = int(cmd[i+2])//1000
-                except IndexError:
-                    pass
+                except (IndexError, ValueError) as e:
+                    log_message("ERROR: Invalid Time Control Given")
+                    log_message(str(e))
         timestamp = time()
         if time_update is None:
             t = time_left
         else:
             t = time_update
 
-        if t > 600 and not IS_FAST:
+        if t > 900 and not IS_FAST:
             output(f"bestmove {stockyu.evaluate(board, 3)}")
         elif t > 60:
             output(f"bestmove {stockyu.evaluate(board, 2)}")
