@@ -43,7 +43,8 @@ while True:
                     except:
                         pass
             elif cmd[i] == "startpos":
-                board.reset_board()
+                board.reset()
+
             else:
                 try: board.set_fen(" ".join(cmd[i:]))
                 except:pass
