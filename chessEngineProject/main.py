@@ -57,24 +57,21 @@ while True:
                 except IndexError:
                     pass
         timestamp = time()
-        try:
-            if time_update is None:
+        if time_update is None:
+            t = time_left
+        else:
+            t = time_update
 
-                if time_left > 600:
-                    output(f"bestmove {stockyu.evaluate(board, 3)}")
-                elif time_left > 90:
-                    output(f"bestmove {stockyu.evaluate(board, 2)}")
-                else:
-                    output(f"bestmove {stockyu.evaluate(board, 1)}")
-                time_left -= time() - timestamp
-            else:
-                if time_update > 600:
-                    output(f"bestmove {stockyu.evaluate(board, 3)}")
-                elif time_update > 90:
-                    output(f"bestmove {stockyu.evaluate(board, 2)}")
-                else:
-                    output(f"bestmove {stockyu.evaluate(board, 1)}")
-                time_update -= time() - timestamp
-        except:pass
+        if t > 600:
+            output(f"bestmove {stockyu.evaluate(board, 3)}")
+        elif t > 60:
+            output(f"bestmove {stockyu.evaluate(board, 2)}")
+        else:
+            output(f"bestmove {stockyu.evaluate(board, 1)}")
+
+        if time_update is None:
+            time_left -= time() - timestamp
+        else:
+            time_update -= time() - timestamp
+
     elif cmd[0] == "quit":
-        exit()
