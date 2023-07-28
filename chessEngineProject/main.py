@@ -28,7 +28,7 @@ while True:
         output("id author Andy_Yu")
         output("uciok")
     elif cmd[0] == "isready":
-        output("isreadyok")
+        output("readyok")
 
     elif cmd[0] == "ucinewgame":
         board = chess.Board()
