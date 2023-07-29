@@ -1,4 +1,4 @@
-# Homemade Chess Engine: "StockYu"
+# Homemade Chess Engine: StockYu  ![icon_image](https://github.com/AndyyyYuuu/chess-engine/blob/main/icon.png?raw=true)
 > *Every masterpiece has its cheap copy.*
 
 &nbsp;&nbsp;&nbsp;&nbsp;An attempt at a chess engine, created for the HackChess hackathon. 
