@@ -2,9 +2,9 @@
 # Andy Yu
 # Use evaluate(chess.Board) to get best move
 
-import chess, math, copy
+import chess, math, copy, functools
 
-piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3, "b": -3, "N": 3, "n": -3, "R": 5, "r": -5, "P": 1, "p": -1}
+piece_worths = {"K": 0, "k": 0, "Q": 9, "q": -9, "B": 3.2, "b": -3.2, "N": 3, "n": -3, "R": 5, "r": -5, "P": 1, "p": -1}
 
 
 # Returns a reordered list of moves in which taking moves appear first
@@ -16,6 +16,13 @@ def order_moves(moves):
         else:
             new_moves.append(i)
     return moves
+
+
+def move_order(board, move1, move2):
+    value = 0
+    value += int("x" in board.san(move2)) - int("x" in board.san(move1))
+    return value
+
 
 
 # Returns the value of a position
@@ -56,7 +63,7 @@ def best_value(input_board, move, depth, alpha, beta):
 
     # Find the value of the move assuming both sides play most optimally
     best_move_value = (math.inf, -math.inf)[board.turn]
-    for a_move in order_moves(board.legal_moves):
+    for a_move in sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))):
         v = best_value(board, str(a_move), depth-1, alpha, beta)
         if (board.turn == chess.WHITE and v > best_move_value) or (board.turn == chess.BLACK and v < best_move_value):
             best_move_value = v
@@ -78,8 +85,8 @@ def evaluate(board, DEPTH):
     else:
         best_num = -math.inf
     best_move = None
-
-    for a_move in order_moves(board.legal_moves):
+    print(sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))))
+    for a_move in sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))):
         value = best_value(board, str(a_move), DEPTH, -math.inf, math.inf)
         if (board.turn == chess.BLACK and value <= best_num) or (board.turn == chess.WHITE and value >= best_num):
             best_move = a_move
