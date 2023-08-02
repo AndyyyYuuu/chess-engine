@@ -85,7 +85,7 @@ def evaluate(board, DEPTH):
     else:
         best_num = -math.inf
     best_move = None
-    print(sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))))
+    # print(sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))))
     for a_move in sorted(board.legal_moves, key=functools.cmp_to_key(lambda move1, move2: move_order(board, move1, move2))):
         value = best_value(board, str(a_move), DEPTH, -math.inf, math.inf)
         if (board.turn == chess.BLACK and value <= best_num) or (board.turn == chess.WHITE and value >= best_num):
