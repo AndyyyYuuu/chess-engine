@@ -29,12 +29,15 @@ while True:
             output("id name StockYu")
             output("id author Andy_Yu")
             output("uciok")
+
         elif cmd[0] == "isready":
             output("readyok")
 
         elif cmd[0] == "ucinewgame":
             board = chess.Board()
             log_message("new game")
+
+
         elif cmd[0] == "position":
             parsing_fen = False
             fen_list = []
@@ -45,13 +48,12 @@ while True:
                         try:
                             board.set_fen(" ".join(fen_list))
                         except ValueError as e:
-                            log_message("ERROR: Invalid FEN")
-                            log_message(str(e))
+                            log_message("ERROR:"+str(e))
                     for j in cmd[i+1:]:
                         try:
                             board.push_uci(j)
                         except (chess.InvalidMoveError, chess.IllegalMoveError, chess.AmbiguousMoveError) as e:
-                            log_message(e)
+                            log_message("ERROR:"+str(e))
                             break
                 elif cmd[i] == "startpos":
                     board.reset()
@@ -84,7 +86,7 @@ while True:
             else:
                 t = time_update
 
-            if t > 900 and not IS_FAST:
+            if t > 1200 and not IS_FAST:
                 output(f"bestmove {stockyu.evaluate(board, 3)}")
             elif t > 60:
                 output(f"bestmove {stockyu.evaluate(board, 2)}")
