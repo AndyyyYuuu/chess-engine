@@ -1,4 +1,3 @@
-# NOTE: I will test this by 5 PM Aug 7th, PST on Arena to confirm that I've fixed it. 
 # Homemade Chess Engine: StockYu &nbsp;&nbsp;![icon_image](https://github.com/AndyyyYuuu/chess-engine/blob/main/icon.png?raw=true)
 > *Every masterpiece has its cheap copy.*
 
