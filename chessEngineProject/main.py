@@ -68,8 +68,6 @@ while True:
                     board.set_fen(" ".join(fen_list))
                 except ValueError as e:
                     log_message("ERROR:"+str(e))
-            print(board)
-
 
 
         elif cmd[0] == "go":
